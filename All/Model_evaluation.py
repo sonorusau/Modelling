@@ -5,8 +5,8 @@ def model_evaluation(model, X_train, X_test, y_train, y_test, threshold = 0.5, e
     print("Model Evaluation:")
     pred_proba_train = model.predict(X_train)
     pred_train = tf.greater(pred_proba_train, threshold)
+    pred_train = outcome_reshape(pred_train)
     if reshape_outcome == True:
-        pred_train = outcome_reshape(pred_train)
         y_train = outcome_reshape(y_train)
     tn, fp, fn, tp = confusion_matrix(y_train, pred_train, labels = [0,1]).ravel()
     
@@ -27,8 +27,8 @@ def model_evaluation(model, X_train, X_test, y_train, y_test, threshold = 0.5, e
 
     pred_proba_test = model.predict(X_test)
     pred_test = tf.greater(pred_proba_test, threshold)
+    pred_test = outcome_reshape(pred_test)
     if reshape_outcome == True:
-        pred_test = outcome_reshape(pred_test)
         y_test = outcome_reshape(y_test)
     tn, fp, fn, tp = confusion_matrix(y_test, pred_test, labels = [0,1]).ravel()
     if evaluate == True:
